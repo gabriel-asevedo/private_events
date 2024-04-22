@@ -1,6 +1,7 @@
 <h1>Events created by <%= @user.username %></h1>
 
 <% if @user.created_events.any? %>
+  <h2>Events Created:</h2>
   <ul>
     <% @user.created_events.each do |event| %>
       <li><%= event.title %></li>
@@ -8,4 +9,23 @@
   </ul>
 <% else %>
   <p>No events created by <%= @user.username %>.</p>
+<% end %>
+
+<% if @user.attended_events.any? %>
+  <h2>Attended Events:</h2>
+  <h3>Past Events:</h3>
+  <ul>
+    <% @user.attended_events.where('date < ?', Date.today).each do |event| %>
+      <li><%= event.title %> - <%= event.date %></li>
+    <% end %>
+  </ul>
+
+  <h3>Future Events:</h3>
+  <ul>
+    <% @user.attended_events.where('date >= ?', Date.today).each do |event| %>
+      <li><%= event.title %> - <%= event.date %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No events attended by <%= @user.username %>.</p>
 <% end %>

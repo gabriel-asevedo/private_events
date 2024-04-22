@@ -1,2 +1,12 @@
 <h1><%= @event.title %></h1>
-<p>Date: <%= @event.date %></p>
+
+<p><strong>Data:</strong> <%= @event.date %></p>
+
+<h2>Participantes:</h2>
+<ul>
+  <% @event.participants.each do |participant| %>
+    <li><%= participant.username %></li>
+  <% end %>
+</ul>
+
+<%= link_to "Participate in this event", event_participants_path(@event), method: :post %>
